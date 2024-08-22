@@ -55,7 +55,7 @@ type (
 		// From 0 to n.
 		Number int `json:"number"`
 		// Episode title. (Optional)
-		Title *string `json:"title,omitempty"`
+		Title *string `json:"title"`
 		// Episode translations.
 		// Translation used for get extracted data of episode.
 		Translations []*Translation `json:"translations"`
@@ -85,7 +85,7 @@ type (
 		// Video streams for the episode.
 		Streams []*Stream `json:"streams"`
 		// Video subtitles for the episode.
-		Subtitles []*Subtitle `json:"captions"`
+		Subtitles []*Subtitle `json:"subtitles"`
 		// Request headers for the video stream.
 		Headers map[string]string `json:"headers"`
 		// When streams are expired.
