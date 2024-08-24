@@ -14,7 +14,7 @@ type (
 	}
 
 	Settings struct {
-		VideoServers []string `json:"episodeServers"`
+		VideoServers []string `json:"videoServers"`
 	}
 
 	ProviderType string
