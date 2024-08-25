@@ -8,24 +8,16 @@ type (
 		GetMediaID(URL string) (string, error)
 		FindMedia(mediaID string) (*Media, error)
 		FindEpisodes(mediaID string) ([]*Episode, error)
-		FindEpisodeServer(episode *Episode, translationID, server string) (*EpisodeServer, error)
+		Extract(episode *Episode, translationID, server string) (*ExtractData, error)
 		GetSettings() (*Settings, error)
-		GetManifest() *Manifest
+		SetSettings(opts ...SettingOpt)
 	}
+
+	SettingOpt func(*Settings)
 
 	Settings struct {
 		VideoServers []string `json:"videoServers"`
-	}
-
-	ProviderType string
-
-	Manifest struct {
-		// ID of the extension.
-		ID string `json:"provider"`
-		// Name of extension.
-		Name      string       `json:"name"`
-		Hostnames []string     `json:"hostnames"`
-		Type      ProviderType `json:"type"`
+		SessionToken *string  `json:"sessionToken"`
 	}
 
 	Media struct {
@@ -76,7 +68,7 @@ type (
 		URL string `json:"url"`
 	}
 
-	EpisodeServer struct {
+	ExtractData struct {
 		// "ID" of the extension.
 		Provider string `json:"provider"`
 		// Episode server name.
@@ -115,14 +107,6 @@ type (
 )
 
 const (
-	InformationProvider           ProviderType = "information"
-	EpisodeProvider               ProviderType = "episode"
-	InformationAndEpisodeProvider ProviderType = "information_and_episode"
-)
-
-const (
 	VideoSourceMP4  VideoSourceType = "mp4"
 	VideoSourceM3U8 VideoSourceType = "m3u8"
 )
-
-var DefaultSettings = &Settings{VideoServers: make([]string, 0)}
